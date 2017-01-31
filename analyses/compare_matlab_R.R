@@ -3,11 +3,11 @@ library(RSSR)
 library(Matrix)
 alpha_input <- scan("~/Downloads/alpha0.txt",what=numeric())
 mu_input <- scan("~/Downloads/mu0.txt",what=numeric())
-logodds_input <- scan("~/Downloads/logodds.txt",what=numeric())
+logodds_input <- rep(scan("~/Downloads/logodds.txt",what=numeric()),length(mu_input))
 betahat_input <- scan("~/Downloads/betahat.txt",what=numeric())
 se_input <- scan("~/Downloads/se.txt",what=numeric())
 SiRiSr_input <- scan("~/Downloads/SiRiSr.txt",what=numeric())
-sigbeta_input <- scan("~/Downloads/sigma_beta.txt",what=numeric())
+sigbeta_input <- rep(scan("~/Downloads/sigma_beta.txt",what=numeric()),length(mu_input))
 SiRiS_input <- gen_SiRSi("/media/nwknoblauch/Data/1kg/1kg_19.mat")
 
 

@@ -12,7 +12,15 @@
 //	  SiRiSr_snp is the corresponding entry of SiRiSr
 //	  alpha and mu are the variational parameters that will be updated 
 //	  p is the total number of SNPs
-void rss_varbvsr_update (const double betahat, const double se, const double sigma_beta, const Eigen::ArrayXd &SiRiS_snp, 
-                         Eigen::ArrayXd &SiRiSr, const double SiRiSr_snp, const double logodds, double &alpha, double &mu);
+void rss_varbvsr_update (const double betahat,
+                         const double sigma_square,
+                         const double se_square,
+                         const double sigma_beta_square,
+                         const Eigen::VectorXd &SiRiS_snp,
+                         Eigen::ArrayXd &SiRiSr,
+                         const double SiRiSr_snp,
+                         const double logodds,
+                         double &alpha,
+                         double &mu);
 
 #endif

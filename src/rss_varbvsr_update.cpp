@@ -6,10 +6,10 @@
 
 // [[Rcpp::export]]
 Eigen::MatrixXd rss_varbvsr (Eigen::SparseMatrix<double> SiRiS,
-                  Rcpp::NumericVector sigma_beta,
-                  const Eigen::VectorXd logodds,
-                  const Eigen::VectorXd betahat,
-                  const Eigen::VectorXd se,
+                  const Eigen::ArrayXd sigma_beta,
+                  const Eigen::ArrayXd logodds,
+                  const Eigen::ArrayXd betahat,
+                  const Eigen::ArrayXd se,
                   const Eigen::ArrayXd &alpha0,
                   const Eigen::ArrayXd &mu0,
                   const Eigen::ArrayXd &SiRiSr0
@@ -32,19 +32,21 @@ Eigen::MatrixXd rss_varbvsr (Eigen::SparseMatrix<double> SiRiS,
   Eigen::MatrixXd retmat(p,3);
   // Run coordinate ascent updates.
   // Repeat for each coordinate ascent update.
+  Eigen::ArrayXd se_square = se * se;
+  Eigen::ArrayXd sigma_beta_square = sigma_beta * sigma_beta;
+  
+  // Compute the variational estimate of the posterior variance.
+  Eigen::ArrayXd  sigma_square = (se_square * sigma_beta_square) / (se_square + sigma_beta_square);
   for (size_t j = 0; j < p; j++) {
-    SiRiS_snp_v=(SiRiS.col(j));
-    SiRiS_snp=SiRiS_snp_v.array();
     // Copy the kth column of matrix inv(S)*R*inv(S).
     // copySparseColumn(SiRiS_snp, k, SiRiS.elems, Ir, Jc, p);
     
     // Copy the kth element of vector inv(S)*R*inv(S)*r.
     double SiRiSr_snp = SiRiSr(j);
-
     // Perform the mean-field variational update.
-    rss_varbvsr_update(betahat(j), se(j), sigma_beta[0], 
-		       SiRiS_snp, SiRiSr, SiRiSr_snp, 
-		       logodds(0), alpha(j), mu(j));
+    rss_varbvsr_update(betahat(j), sigma_square(j), se_square(j), sigma_beta_square(j),
+		       SiRiS.col(j), SiRiSr, SiRiSr_snp, 
+		       logodds(j), alpha(j), mu(j));
   }
   retmat << alpha,mu,SiRiSr;
   return(retmat);
