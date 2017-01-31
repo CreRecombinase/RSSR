@@ -49,3 +49,51 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// rss_varbvsr
+Eigen::MatrixXd rss_varbvsr(Eigen::SparseMatrix<double> SiRiS, Rcpp::NumericVector sigma_beta, const Eigen::VectorXd logodds, const Eigen::VectorXd betahat, const Eigen::VectorXd se, const Eigen::ArrayXd& alpha0, const Eigen::ArrayXd& mu0, const Eigen::ArrayXd& SiRiSr0);
+RcppExport SEXP RSSR_rss_varbvsr(SEXP SiRiSSEXP, SEXP sigma_betaSEXP, SEXP logoddsSEXP, SEXP betahatSEXP, SEXP seSEXP, SEXP alpha0SEXP, SEXP mu0SEXP, SEXP SiRiSr0SEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< Eigen::SparseMatrix<double> >::type SiRiS(SiRiSSEXP);
+    Rcpp::traits::input_parameter< Rcpp::NumericVector >::type sigma_beta(sigma_betaSEXP);
+    Rcpp::traits::input_parameter< const Eigen::VectorXd >::type logodds(logoddsSEXP);
+    Rcpp::traits::input_parameter< const Eigen::VectorXd >::type betahat(betahatSEXP);
+    Rcpp::traits::input_parameter< const Eigen::VectorXd >::type se(seSEXP);
+    Rcpp::traits::input_parameter< const Eigen::ArrayXd& >::type alpha0(alpha0SEXP);
+    Rcpp::traits::input_parameter< const Eigen::ArrayXd& >::type mu0(mu0SEXP);
+    Rcpp::traits::input_parameter< const Eigen::ArrayXd& >::type SiRiSr0(SiRiSr0SEXP);
+    rcpp_result_gen = Rcpp::wrap(rss_varbvsr(SiRiS, sigma_beta, logodds, betahat, se, alpha0, mu0, SiRiSr0));
+    return rcpp_result_gen;
+END_RCPP
+}
+// rss_varbvsr_update
+void rss_varbvsr_update(const double betahat, const double se, const double sigma_beta, const Eigen::ArrayXd& SiRiS_snp, Eigen::ArrayXd& SiRiSr, const double SiRiSr_snp, const double logodds, double& alpha, double& mu);
+RcppExport SEXP RSSR_rss_varbvsr_update(SEXP betahatSEXP, SEXP seSEXP, SEXP sigma_betaSEXP, SEXP SiRiS_snpSEXP, SEXP SiRiSrSEXP, SEXP SiRiSr_snpSEXP, SEXP logoddsSEXP, SEXP alphaSEXP, SEXP muSEXP) {
+BEGIN_RCPP
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const double >::type betahat(betahatSEXP);
+    Rcpp::traits::input_parameter< const double >::type se(seSEXP);
+    Rcpp::traits::input_parameter< const double >::type sigma_beta(sigma_betaSEXP);
+    Rcpp::traits::input_parameter< const Eigen::ArrayXd& >::type SiRiS_snp(SiRiS_snpSEXP);
+    Rcpp::traits::input_parameter< Eigen::ArrayXd& >::type SiRiSr(SiRiSrSEXP);
+    Rcpp::traits::input_parameter< const double >::type SiRiSr_snp(SiRiSr_snpSEXP);
+    Rcpp::traits::input_parameter< const double >::type logodds(logoddsSEXP);
+    Rcpp::traits::input_parameter< double& >::type alpha(alphaSEXP);
+    Rcpp::traits::input_parameter< double& >::type mu(muSEXP);
+    rss_varbvsr_update(betahat, se, sigma_beta, SiRiS_snp, SiRiSr, SiRiSr_snp, logodds, alpha, mu);
+    return R_NilValue;
+END_RCPP
+}
+// SiRSi
+Eigen::SparseMatrix<double> SiRSi(const Eigen::SparseMatrix<double>& R, const Eigen::VectorXd Si);
+RcppExport SEXP RSSR_SiRSi(SEXP RSEXP, SEXP SiSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const Eigen::SparseMatrix<double>& >::type R(RSEXP);
+    Rcpp::traits::input_parameter< const Eigen::VectorXd >::type Si(SiSEXP);
+    rcpp_result_gen = Rcpp::wrap(SiRSi(R, Si));
+    return rcpp_result_gen;
+END_RCPP
+}

@@ -17,3 +17,15 @@ rcppeigen_bothproducts <- function(x) {
     .Call('RSSR_rcppeigen_bothproducts', PACKAGE = 'RSSR', x)
 }
 
+rss_varbvsr <- function(SiRiS, sigma_beta, logodds, betahat, se, alpha0, mu0, SiRiSr0) {
+    .Call('RSSR_rss_varbvsr', PACKAGE = 'RSSR', SiRiS, sigma_beta, logodds, betahat, se, alpha0, mu0, SiRiSr0)
+}
+
+rss_varbvsr_update <- function(betahat, se, sigma_beta, SiRiS_snp, SiRiSr, SiRiSr_snp, logodds, alpha, mu) {
+    invisible(.Call('RSSR_rss_varbvsr_update', PACKAGE = 'RSSR', betahat, se, sigma_beta, SiRiS_snp, SiRiSr, SiRiSr_snp, logodds, alpha, mu))
+}
+
+SiRSi <- function(R, Si) {
+    .Call('RSSR_SiRSi', PACKAGE = 'RSSR', R, Si)
+}
+
